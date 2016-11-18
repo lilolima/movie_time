@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+   <title>Movie Time</title>
+      <link rel="StyleSheet" type="text/css" href="css/style.css" media="screen" ></link>
+</h:head>
+<h:body>
+
+<div class="ui-g-12">
+<p:tabMenu activeIndex="#{param.i}">
+    <p:menuitem value="Home" outcome="minhalista.xhtml" icon="ui-icon-star">
+        <f:param name="i" value="0" />
+    </p:menuitem>
+    <p:menuitem value="Minha Lista" outcome="minhalista.xhtml" icon="ui-icon-star">
+        <f:param name="i" value="1" />
+    </p:menuitem>
+</p:tabMenu>
+</div>
+
+
+<div class="ui-grid">
+<h2>Movie Time</h2>
+    	<div class="ui-grid-col-2">.</div>
+        <div class="ui-grid-col-8">
+	<h:form>
+	
+		<!-- tabela -->
+		
+	<p:dataTable var="f" value="#{filmeMB.filmes}">
+		<f:facet name="header">
+       		 Minha Lista
+    	</f:facet>
+    
+    	<p:column headerText="Filme">
+        	<h:outputText value="#{f.nomeFilme}" />
+    	</p:column>
+ 
+    	<p:column headerText="Genero">
+       		 <h:outputText value="#{f.genero}" />
+   		 </p:column>
+ 
+   		 <p:column headerText="Ano">
+       		 <h:outputText value="#{f.ano}" />
+    	</p:column>
+    	
+    	 <p:column headerText="">
+    		<p:button id="marcar" value="Avaliar" action="#{filmeMB.adicionar}"/>
+    	</p:column>
+	</p:dataTable>
+
+		<!-- fim tabela -->
+		
+		
+		
+		
+	</h:form>
+	</div>
+        <div class="ui-grid-col-2">.</div>
+        </div>
+        
+        <div class="ui-g-12">Footer</div>
+        
+</h:body>
+</html>

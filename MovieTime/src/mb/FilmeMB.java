@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -24,34 +25,31 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+import dao.FilmeDAO;
+import dao.FilmeDAOImpl;
 import entidade.Filme;
 
-@ManagedBean(name="filmeMB")
+@ManagedBean
 @SessionScoped
-public class FilmeMB implements Serializable{
+public class FilmeMB {
 	
 	private String nome;
 	private List<Filme> filmes = new ArrayList<Filme>();
+	private List<Filme> watchlist = new ArrayList<Filme>();
+	private Filme watchAtual = new Filme();
 	private Filme filmeAtual = new Filme();
+	private FilmeDAO filmeDAO = new FilmeDAOImpl();
 	
 	
 	public FilmeMB() {
 		this.filmes = new ArrayList<Filme>();
 		this.filmeAtual= new Filme();
+		this.watchlist = new ArrayList<Filme>();
+		this.watchAtual= new Filme();
 	}
 	
-	/* 
-	public String adicionar() { 
-		System.out.println("Pressionado o Adicionar para o jogador: " +
-					jogadorAtual.getNome());
-		jogadores.add(jogadorAtual);
-		jogadorAtual = new Jogador();
-		System.out.println("A lista contém " + jogadores.size() + " elementos");
-		return "";
-	}*/ 
 	
 	public void pesquisar() { 
-		String image;
 	System.out.println("Pressionado o buscar para o filme: " + this.nome);
    	 this.nome = this.nome.replaceAll(" ", "+");
    	 //filmeAtual.setNome(nome.replaceAll(" ", "+"));
@@ -90,6 +88,21 @@ public class FilmeMB implements Serializable{
     	//return "";
 		//filmes = timeDAO.pesquisarPorNome( timeAtual.getNome() );
 		//return "";
+	}
+	
+	public String adicionar() { 
+		/* this.wachtlist = new ArrayList<Watch>();
+		
+		System.out.println("Pressionado o Add na lista para o filme: " + this.nome);
+		filmes.add(filmeAtual);
+		filmeAtual = new Filme();
+		System.out.println("A lista contém " + filmes.size() + " elementos");
+		return "";*/
+		filmes = watchlist; //lista
+		filmeAtual = watchAtual; //obj
+		filmeDAO.adicionar( watchAtual);
+		filmeAtual = new Filme();
+		return "";
 	}
 	
 	public Filme getFilmeAtual() {

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+   <title>Movie Time</title>
+      <link rel="StyleSheet" type="text/css" href="css/style.css" media="screen" ></link>
+</h:head>
+<h:body>
+
+<div class="ui-g-12">
+<p:tabMenu activeIndex="#{param.i}">
+    <p:menuitem value="Home" outcome="movie.xhtml" icon="ui-icon-star">
+        <f:param name="i" value="0" />
+    </p:menuitem>
+    <p:menuitem value="Minha Lista" outcome="movie.xhtml" icon="ui-icon-star">
+        <f:param name="i" value="1" />
+    </p:menuitem>
+</p:tabMenu>
+</div>
+
+
+<div class="ui-grid">
+<h2>Movie Time</h2>
+    	<div class="ui-grid-col-2">.</div>
+        <div class="ui-grid-col-8">
+	<h:form>
+	
+		<br></br>
+		<h:panelGrid columns="3">
+			<p:outputLabel>Filme: </p:outputLabel>
+			<p:inputText value="#{filmeMB.nome}"/>
+			<p:commandButton value="Buscar" action="#{filmeMB.pesquisar}"/>
+		</h:panelGrid>
+		<br></br>
+		
+		<!-- teste -->
+		<p:repeat value="#{filmeMB.filmes}" var="f">
+        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+            
+                <img src="#{f.imagem}" alt="" /> 
+          	 	
+ 
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Filme:" />
+                    <h:outputText value="#{f.nomeFilme}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Sinopse:" />
+                    <h:outputText value="#{f.sinopse}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Genero:" />
+                    <h:outputText value="#{f.genero}" style="font-weight: bold"/>
+                    
+                    <h:outputText value="Ano:" />
+                    <h:outputText value="#{f.ano}" style="font-weight: bold"/>
+                    
+                    <h:outputText value="Nota:" />
+                    <h:outputText value="#{f.rate}" style="font-weight: bold"/>
+                    <p:commandButton id="marcar" value="Add watchlist" action="#{filmeMB.adicionar}"/>
+                    
+                    
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+        <hr />
+    </p:repeat>
+ 
+   
+	<!-- teste -->
+		
+		
+	</h:form>
+	</div>
+        <div class="ui-grid-col-2">.</div>
+        </div>
+        
+        <div class="ui-g-12">Footer</div>
+        
+</h:body>
+</html>
